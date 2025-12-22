@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+<div th:replace="header::header">
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <form class="px-1 py-1" th:action="@{/categories}" method="get">
+                        <div class="row">
+                            <div class="col-auto">
+                                <input class="form-control" type="search" name="key" placeholder="Nhập tên loại...">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-striped table-bordered caption-top">
+                    <caption>Danh sách các loại sách</caption>
+                    <thead>
+                        <tr>
+                            <th>Mã loại</th>
+                            <th>Tên loại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="category : ${categories}" th:object="${category}">
+                            <td th:text="*{id}"></td>
+                            <td th:text="*{name}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages, 1)}" class="page-item">
+                            <a th:if="${key == null}" class="page-link" th:href="@{'/categories?pageNumber=' + ${pageNumber}}" th:text="${pageNumber}"></a>
+                            <a th:if="${key != null}" class="page-link" th:href="@{'/categories?key=' + ${key} + '&pageNumber=' + ${pageNumber}}" th:text="${pageNumber}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
