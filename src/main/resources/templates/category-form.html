@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${mode.equals('create')}">Tạo mới loại sách</title>
+    <title th:if="${mode.equals('update')}">Cập nhật loại sách</title>
+</head>
+<body>
+    <div th:if="${msg != null}">
+        <span th:text="${msg}"></span>
+    </div>
+
+    <div th:if="${updateErrorMsg}">
+        <span th:text="${updateErrorMsg}"></span>
+    </div>
+
+    <form th:action="@{/categories/save}" method="post" th:if="${category != null}" th:object="${category}">
+        <div>
+            <h2 th:if="${mode.equals('create')}">Tạo mới loại sách</h2>
+            <h2 th:if="${mode.equals('update')}">Cập nhật loại sách</h2>
+        </div>
+        <div>
+            <label for="id">Mã loại</label>
+            <input th:readonly="${mode.equals('update')}" type="text" id="id" th:field="*{id}">
+            <span th:errors="*{id}"></span>
+        </div>
+        <div>
+            <label for="name">Tên loại</label>
+            <input type="text" id="name" th:field="*{name}">
+            <span th:errors="*{name}"></span>
+        </div>
+        <div>
+            <button type="submit">Lưu</button>
+        </div>
+        <input type="hidden" name="mode" th:value="${mode}">
+    </form>
+</body>
+</html>

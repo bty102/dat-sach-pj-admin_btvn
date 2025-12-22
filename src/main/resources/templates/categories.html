@@ -30,6 +30,31 @@
                     </form>
                 </div>
             </div>
+            <div th:if="${updateSuccessMsg != null}" class="row">
+                <div class="col">
+                    <span th:text="${updateSuccessMsg}"></span>
+                </div>
+            </div>
+            <div th:if="${CreationSuccessMsg}" class="row">
+                <div class="col">
+                    <span th:text="${CreationSuccessMsg}"></span>
+                </div>
+            </div>
+            <div th:if="${deletionErrorMsg != null}" class="row">
+                <div class="col">
+                    <span th:text="${deletionErrorMsg}"></span>
+                </div>
+            </div>
+            <div th:if="${deletionSuccessMsg != null}" class="row">
+                <div class="col">
+                    <span th:text="${deletionSuccessMsg}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a th:href="@{/categories/create}">Tạo mới</a>
+                </div>
+            </div>
             <div class="row">
                 <table class="table table-striped table-bordered caption-top">
                     <caption>Danh sách các loại sách</caption>
@@ -37,12 +62,17 @@
                         <tr>
                             <th>Mã loại</th>
                             <th>Tên loại</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="category : ${categories}" th:object="${category}">
                             <td th:text="*{id}"></td>
                             <td th:text="*{name}"></td>
+                            <td>
+                                <a th:href="@{'/categories/update/' + *{id}}">Cập nhật</a>
+                                <a onclick="return confirm('Xóa loại sách này?')" th:href="@{'/categories/delete/' + *{id}}">Xóa</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -50,7 +80,7 @@
             <div class="row">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages, 1)}" class="page-item">
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages, 1)}" th:class="${'page-item ' + ((pageNumber == currentPageNumber)? 'active' : '')}">
                             <a th:if="${key == null}" class="page-link" th:href="@{'/categories?pageNumber=' + ${pageNumber}}" th:text="${pageNumber}"></a>
                             <a th:if="${key != null}" class="page-link" th:href="@{'/categories?key=' + ${key} + '&pageNumber=' + ${pageNumber}}" th:text="${pageNumber}"></a>
                         </li>
