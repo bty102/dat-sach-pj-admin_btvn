@@ -76,6 +76,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div th:if="${categories.isEmpty()}">
+                    <span>Không có loại sách nào</span>
+                </div>
             </div>
             <div class="row">
                 <nav aria-label="Page navigation example">

@@ -32,7 +32,7 @@ public class Book {
     Long price;
 
     @Column(name = "sotap", columnDefinition = "NVARCHAR(50)", length = 50)
-    String volumeNumber; // So tap
+    String numberOfVolumes; // So luong tap
 
     @Column(name = "anh", columnDefinition = "NVARCHAR(50)", length = 50)
     String imagePath;
