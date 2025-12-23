@@ -26,6 +26,27 @@
                     <button type="submit">Tìm kiếm</button>
                 </form>
             </div>
+            <div th:if="${updateUnsuccessMsg != null}">
+                <span th:text="${updateUnsuccessMsg}"></span>
+            </div>
+            <div th:if="${updateSuccessMsg != null}">
+                <span th:text="${updateSuccessMsg}"></span>
+            </div>
+            <div th:if="${creationUnsuccessMsg != null}">
+                <span th:text="${creationUnsuccessMsg}"></span>
+            </div>
+            <div th:if="${creationSuccessMsg != null}">
+                <span th:text="${creationSuccessMsg}"></span>
+            </div>
+            <div th:if="${deletionSucessMsg != null}">
+                <span th:text="${deletionSucessMsg}"></span>
+            </div>
+            <div th:if="${deletionUnsuccessMsg != null}">
+                <span th:text="${deletionUnsuccessMsg}"></span>
+            </div>
+            <div>
+                <a th:href="@{/books/create}">Tạo mới</a>
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -52,10 +73,16 @@
                         <td th:text="*{importDate.toString()}"></td>
                         <td th:text="*{author}"></td>
                         <td th:text="*{category.name}"></td>
-                        <td></td>
+                        <td>
+                            <a th:href="@{'/books/update/' + *{id}}">Cập nhật</a>
+                            <a onclick="return confirm('Xóa sách này?')" th:href="@{'/books/delete/' + *{id}}">Xóa</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+            <div th:if="${books.isEmpty()}">
+                <span>Không có sách nào</span>
+            </div>
             <div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
