@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>Danh sách loại sách</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -32,32 +32,32 @@
             </div>
             <div th:if="${updateSuccessMsg != null}" class="row">
                 <div class="col">
-                    <span th:text="${updateSuccessMsg}"></span>
+                    <span class="text-success" th:text="${updateSuccessMsg}"></span>
                 </div>
             </div>
             <div th:if="${CreationSuccessMsg}" class="row">
                 <div class="col">
-                    <span th:text="${CreationSuccessMsg}"></span>
+                    <span class="text-success" th:text="${CreationSuccessMsg}"></span>
                 </div>
             </div>
             <div th:if="${deletionErrorMsg != null}" class="row">
                 <div class="col">
-                    <span th:text="${deletionErrorMsg}"></span>
+                    <span class="text-danger" th:text="${deletionErrorMsg}"></span>
                 </div>
             </div>
             <div th:if="${deletionSuccessMsg != null}" class="row">
                 <div class="col">
-                    <span th:text="${deletionSuccessMsg}"></span>
+                    <span class="text-success" th:text="${deletionSuccessMsg}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <a th:href="@{/categories/create}">Tạo mới</a>
+                    <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" th:href="@{/categories/create}"><i class="bi bi-plus-lg"></i><span>Tạo mới</span></a>
                 </div>
             </div>
             <div class="row">
                 <table class="table table-striped table-bordered caption-top">
-                    <caption>Danh sách các loại sách</caption>
+                    <caption class="fw-bold">Danh sách các loại sách</caption>
                     <thead>
                         <tr>
                             <th>Mã loại</th>
@@ -70,8 +70,8 @@
                             <td th:text="*{id}"></td>
                             <td th:text="*{name}"></td>
                             <td>
-                                <a th:href="@{'/categories/update/' + *{id}}">Cập nhật</a>
-                                <a onclick="return confirm('Xóa loại sách này?')" th:href="@{'/categories/delete/' + *{id}}">Xóa</a>
+                                <a class="btn text-primary" th:href="@{'/categories/update/' + *{id}}"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn text-danger" onclick="return confirm('Xóa loại sách này?')" th:href="@{'/categories/delete/' + *{id}}"><i class="bi bi-trash2"></i></a>
                             </td>
                         </tr>
                     </tbody>

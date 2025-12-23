@@ -4,35 +4,50 @@
     <meta charset="UTF-8">
     <title th:if="${mode.equals('create')}">Tạo mới loại sách</title>
     <title th:if="${mode.equals('update')}">Cập nhật loại sách</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div th:if="${msg != null}">
-        <span th:text="${msg}"></span>
-    </div>
+<div th:replace="header::header">
 
-    <div th:if="${updateErrorMsg}">
-        <span th:text="${updateErrorMsg}"></span>
-    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div th:if="${msg != null}">
+                <span th:text="${msg}"></span>
+            </div>
 
-    <form th:action="@{/categories/save}" method="post" th:if="${category != null}" th:object="${category}">
-        <div>
-            <h2 th:if="${mode.equals('create')}">Tạo mới loại sách</h2>
-            <h2 th:if="${mode.equals('update')}">Cập nhật loại sách</h2>
+            <div th:if="${updateErrorMsg != null}">
+                <span class="text-danger" th:text="${updateErrorMsg}"></span>
+            </div>
+
+            <div th:if="${creationErrorMsg != null}">
+                <span class="text-danger" th:text="${creationErrorMsg}"></span>
+            </div>
+
+            <form th:action="@{/categories/save}" method="post" th:if="${category != null}" th:object="${category}">
+                <div>
+                    <h2 th:if="${mode.equals('create')}">Tạo mới loại sách</h2>
+                    <h2 th:if="${mode.equals('update')}">Cập nhật loại sách</h2>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id">Mã loại</label>
+                    <input class="form-control" th:readonly="${mode.equals('update')}" type="text" id="id" th:field="*{id}">
+                    <span class="form-text text-danger" th:errors="*{id}"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Tên loại</label>
+                    <input class="form-control" type="text" id="name" th:field="*{name}">
+                    <span class="form-text text-danger" th:errors="*{name}"></span>
+                </div>
+                <div>
+                    <button class="btn btn-success" type="submit">Lưu</button>
+                </div>
+                <input type="hidden" name="mode" th:value="${mode}">
+            </form>
         </div>
-        <div>
-            <label for="id">Mã loại</label>
-            <input th:readonly="${mode.equals('update')}" type="text" id="id" th:field="*{id}">
-            <span th:errors="*{id}"></span>
-        </div>
-        <div>
-            <label for="name">Tên loại</label>
-            <input type="text" id="name" th:field="*{name}">
-            <span th:errors="*{name}"></span>
-        </div>
-        <div>
-            <button type="submit">Lưu</button>
-        </div>
-        <input type="hidden" name="mode" th:value="${mode}">
-    </form>
+    </div>
+</div>
 </body>
 </html>
