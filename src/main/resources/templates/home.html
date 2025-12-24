@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:replace="header::header">
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h2>Trang chủ</h2>
+            <div>Tổng doanh thu ngày hiện tại: <span th:text="${revenueForToday}"></span></div>
+        </div>
+        <div class="col-9">
+            <table class="table caption-top table-striped">
+                <caption class="fw-bold">Top 10 sách bán chạy nhất</caption>
+
+                <thead>
+                <tr>
+                    <th>Mã sách</th>
+                    <th>Tên sách</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Số tập</th>
+                    <th>Ảnh</th>
+                    <th>Ngày nhập</th>
+                    <th>Tác giả</th>
+                    <th>Loại</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${top10BestSellingBooks}" th:object="${book}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{quantity}"></td>
+                    <td th:text="*{price}"></td>
+                    <td th:text="*{numberOfVolumes}"></td>
+                    <td><img class="w-50" th:src="@{'/' + *{imagePath}}"></td>
+                    <td th:text="*{importDate.toString()}"></td>
+                    <td th:text="*{author}"></td>
+                    <td th:text="*{category.name}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

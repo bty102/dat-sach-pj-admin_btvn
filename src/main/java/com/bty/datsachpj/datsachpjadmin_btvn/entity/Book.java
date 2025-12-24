@@ -47,7 +47,7 @@ public class Book {
     @Size(min = 1, max = 50, message = "Số tập phải có ít nhất 1 và tối đa 50 ký tự")
     String numberOfVolumes; // So luong tap
 
-    @Column(name = "anh", columnDefinition = "NVARCHAR(50)", length = 50)
+    @Column(name = "anh", columnDefinition = "NVARCHAR(500)", length = 500)
 //    @Size(min = 1, max = 500, message = "Đường dẫn ảnh phải có ít nhất 1 và tối đa 500 ký tự")
     String imagePath;
 
@@ -65,5 +65,9 @@ public class Book {
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<BillDetail> billDetails = new ArrayList<>();
+
+    public long getNumberOfBillDetails() {
+        return billDetails.size();
+    }
 
 }

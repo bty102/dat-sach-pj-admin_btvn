@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -111,5 +112,10 @@ public class BookService {
             throw new BookDeletionException("không thể xóa sách vì mã sách không tồn tại");
         }
         bookRepository.deleteById(id);
+    }
+
+    public List<Book> top10BestSellingBooks() {
+        Pageable pageable = PageRequest.of(0, 10);
+        return bookRepository.findTopBooksByBillDetailCount(pageable).getContent();
     }
 }

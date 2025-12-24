@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -58,4 +59,14 @@ public class BillService {
         return bill;
     }
 
+    public long getRevenuesInDay(LocalDate day) {
+        List<Bill> bills = billRepository.findAll();
+        long sum = 0;
+        for(Bill bill : bills) {
+            if(day.equals(bill.getPurchaseDate().toLocalDate())) {
+                sum += bill.getTotalBill();
+            }
+        }
+        return sum;
+    }
 }
