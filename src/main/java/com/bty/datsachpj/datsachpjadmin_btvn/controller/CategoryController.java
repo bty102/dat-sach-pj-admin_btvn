@@ -121,4 +121,10 @@ public class CategoryController {
         }
         return "redirect:/categories";
     }
+
+    @GetMapping("/categories/statistics")
+    public String statistics(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "statistics-categories";
+    }
 }

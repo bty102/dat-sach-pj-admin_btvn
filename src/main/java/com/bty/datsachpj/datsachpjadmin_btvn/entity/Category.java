@@ -31,4 +31,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Book> books = new ArrayList<>();
+
+    public long numberOfBooks() {
+        return books.size();
+    }
 }
