@@ -36,4 +36,18 @@ public class Bill {
 
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<BillDetail> billDetails = new ArrayList<>();
+
+    // lay tong tien hoa don
+    public long getTotalBill() {
+        long sum = 0;
+        for(BillDetail billDetail : billDetails) {
+            sum += billDetail.getBook().getPrice()*billDetail.getQuantity();
+        }
+        return sum;
+    }
+
+    // lay so luong sach trong hoa don
+    public long getNumberOfBooks() {
+        return billDetails.size();
+    }
 }

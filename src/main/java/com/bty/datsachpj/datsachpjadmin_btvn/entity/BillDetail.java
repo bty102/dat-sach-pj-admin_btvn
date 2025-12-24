@@ -32,4 +32,9 @@ public class BillDetail {
     @ManyToOne
     @JoinColumn(name = "MaSach")
     Book book;
+
+    // lay thanh tien
+    public long getTotal() {
+        return book.getPrice() * quantity;
+    }
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách hóa đơn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div th:replace="header::header">
+
+</div>
+
+    <div th:if="${confirmSuccessdMsg != null}">
+        <span th:text="${confirmSuccessdMsg}"></span>
+    </div>
+
+    <div th:if="${confirmFailedMsg != null}">
+        <span th:text="${confirmFailedMsg}"></span>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã hóa đơn</th>
+                <th>Mã khách hàng</th>
+                <th>Họ tên khách hàng</th>
+                <th>Ngày mua</th>
+                <th>Tổng số sách</th>
+                <th>Thanh toán</th>
+                <th>Thành tiền</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bill : ${bills}" th:object="${bill}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{customer.id}"></td>
+                <td th:text="*{customer.fullName}"></td>
+                <td th:text="*{purchaseDate.toString()}"></td>
+                <td th:text="*{getNumberOfBooks()}"></td>
+                <td th:text="*{isPaid ? 'Đã thanh toán' : 'Chưa thanh toán'}"></td>
+                <td th:text="*{getTotalBill()}"></td>
+                <td>
+                    <a onclick="return confirm('Xác nhận hóa đơn này đã thanh toán?')" th:if="*{!isPaid}" th:href="@{'/bills/confirmPayment/' + *{id}}">Xác nhận</a>
+                    <a th:href="@{'/bills/details/' + *{id}}">Xem chi tiết</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li th:each="pageNumber : ${#numbers.sequence(1, totalPages, 1)}" th:class="${'page-item ' + (currentPageNumber == pageNumber? 'active' : '')}"><a class="page-link" th:href="@{'/bills?paid=' + ${paid} + '&pageNumber='+ ${pageNumber}}" th:text="${pageNumber}"></a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>
